@@ -15,18 +15,16 @@ EXERCISE 29:
 */
 
 function isValidPhone(number){
-    var validNumber;
-    for (var i = 0; i < number.length; i++) {
-        if (number.length !== 10) {
-            validNumber = false;
-        } else if (number[0] !== '0'){
-            validNumber = false;
-        } else if (number[1] !== '8'){
-            validNumber = false;
-        } else {
-            validNumber = true;
-        }
-
-    return validNumber;
+    if (number.length !== 10) {
+        return false;
+    } else if (number[0] !== '0'){
+        return false;
+    } else if (number[1] !== '8'){
+        return false;
+    } else if (number[2] !== '3' && number[2] !== '5' && number[2] !== '6' && number[2] !== '7') {
+        return false;
+    } else if (/[^0-9]/g.test(number)) {
+        return false;
     }
+    return true;
 }
