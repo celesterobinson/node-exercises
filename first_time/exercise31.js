@@ -50,48 +50,42 @@ EXERCISE 31:
         isValidEuro("W94684895598") should return true    
 */
 
-// function isValidEuro(serial){
-//     var serialArr = serial.split('');
-//     if (serial.length !== 12) {
-//         return false;
-//     } else if (/[^A-Z]/g.test(serial[0])) {
-//         return false;
-
-//     } 
-//     for (var i = 1; i < serialArr.length; i++) {
-//         if (/[^0-9]/g.test(serialArr[i])) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
 function isValidEuro(serial){
+    if (!isEuroFormat(serial)) {
+        return false;
+    }
     var serialArr = serial.split('');                                             // Turns serial into an array
-    var convertLetter = serial.charCodeAt(0) - 65;                                // Converts first letter to number
-    var sumOfNumbers = serialArr.reduce(function(accumulator, currentValue){      // Adds all numbers in array together
-        return accumulator + currentValue;
-    });
-    var resultSum = (sumOfNumbers + convertLetter).toString();                    // Adds sum of array to the number we got from letter conversion
-    var sumOfResultSum = add(resultSum);                                          // Runs add function 
-    if (sumOfResultSum => 10) {                                                   
-        var again = sumOfResultSum.toString();
-        var newSum = add(again);
-        if (newSum < 10 && newSum !== 8) {
+    serialArr[0] = serialArr[0].charCodeAt(0) - 64;                                             // Converts first letter to number
+                                                                // Adds sum of array to the number we got from letter conversion
+    var sum = getSumOfArr(serialArr);                                          // Runs add function 
+    while (sum >= 10) {
+        sum = sum.split('');
+        sum = getSumOfArr(sum);
+    } 
+    return sum === '8';
+}
+isValidEuro('X04135981862');
+function isEuroFormat(serial){
+    var serialArr = serial.split('');
+    if (serial.length !== 12) {
+        return false;
+    } else if (/[^A-Z]/g.test(serial[0])) {
+        return false;
+
+    } 
+    for (var i = 1; i < serialArr.length; i++) {
+        if (/[^0-9]/g.test(serialArr[i])) {
             return false;
         }
-    } else if (sumOfResultSum < 10 && sumOfResultSum !== 8) {
-        return false;
     }
     return true;
 }
 
-function add(string) {
-    string = string.split('');
+function getSumOfArr(arr){
     var sum = 0;
-    for (var i = 0; i < string.length; i++) {
-        sum += parseInt(string[i],10);
+    for (var i = 0; i < arr.length; i++) {
+        sum += +arr[i];
     }
-    return sum;
+    return sum.toString();
 }
 
