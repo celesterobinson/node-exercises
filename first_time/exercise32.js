@@ -24,6 +24,61 @@ EXERCISE 32:
 */
 
 function isValidCardFormat(number){
-    var val = 1;
-    return val;
+    
+}
+
+function getCardType(number) {
+    var cardType;
+    if (isVisa(number) === true) {
+        cardType = 'Visa';
+    } else if (isAmerEx(number) === true) {
+        cardType = 'American Express';
+    } else if (isMaster(number) === true) {
+        cardType = 'MasterCard';
+    } else if (isDiscover(number) === true) {
+        cardType = 'Discover';
+    } else if (isDiner(number) === true) {
+        cardType = 'Diner\'s Club';
+    } else {
+        cardType = 'Invalid'
+    } 
+}
+
+// Visa
+function isVisa(number) {
+    var nums = number.split('');
+    if (number.length !== 13 || number.length !== 16) {
+        return false;
+    } else if (visaNums[0] !== 4) {
+        return false;
+    }
+    return true;
+}
+
+//American Express
+function isAmerEx(number) {
+    var nums = number.split('');
+    if (number.length !== 15) {
+        return false;
+    } else if (nums[0] !== 3) {
+        return false;
+    } else if (nums[1] !== 4 || nums[1] !== 7) {
+        return false;
+    }
+    return true;
+}
+
+//MasterCard
+function isMaster(number) {
+    
+}
+
+//American Express
+function isDiscover(number) {
+    
+}
+
+//American Express
+function isDiner(number) {
+    
 }
