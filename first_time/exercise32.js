@@ -24,61 +24,96 @@ EXERCISE 32:
 */
 
 function isValidCardFormat(number){
-    
+    if(isNumber(number)) {
+        return getCardType(number);
+    } 
+    return false;
 }
 
 function getCardType(number) {
-    var cardType;
-    if (isVisa(number) === true) {
-        cardType = 'Visa';
-    } else if (isAmerEx(number) === true) {
-        cardType = 'American Express';
-    } else if (isMaster(number) === true) {
-        cardType = 'MasterCard';
-    } else if (isDiscover(number) === true) {
-        cardType = 'Discover';
-    } else if (isDiner(number) === true) {
-        cardType = 'Diner\'s Club';
-    } else {
-        cardType = 'Invalid'
-    } 
+    return isVisa(number) ||
+    isAmerEx(number) ||
+    isMaster(number) ||
+    isDiscover(number) ||
+    isDiner(number) || false;
+}
+
+function isNumber(number) {
+    var isnum = /[a-zA-Z]/g;
+    if (isnum.test(number)) {
+        return false;
+    }
+    return true;
 }
 
 // Visa
 function isVisa(number) {
     var nums = number.split('');
-    if (number.length !== 13 || number.length !== 16) {
-        return false;
-    } else if (visaNums[0] !== 4) {
-        return false;
+    if (number.length === 13 || number.length === 16) {
+        if (nums[0] === '4') {
+            return true;
+        }
     }
-    return true;
+    return false;
 }
+
 
 //American Express
 function isAmerEx(number) {
     var nums = number.split('');
-    if (number.length !== 15) {
-        return false;
-    } else if (nums[0] !== 3) {
-        return false;
-    } else if (nums[1] !== 4 || nums[1] !== 7) {
-        return false;
+    if (number.length === 15) {
+        if (nums[0] === '3') {
+            if (nums[1] === '4' || nums[1] === '7') {
+                return true;
+            }
+        }
     }
-    return true;
+    return false;
 }
 
 //MasterCard
 function isMaster(number) {
-    
+    var nums = number.split('');
+    if (number.length === 16) {
+        if (nums[0] === '5') {
+            if (nums[1] === '1' || nums[1] === '2' || nums[1] === '3' || nums[1] === '4' || nums[1] === '5') {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
-//American Express
+//Discover
 function isDiscover(number) {
-    
+    var nums = number.split('');
+    if (number.length === 16) {
+        if (nums[0] === '6') {
+            if (nums[1] === '0') {
+                if (nums[2] === '1') {
+                    if (nums[3] === '1') {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }
 
-//American Express
+//Diner's Club
 function isDiner(number) {
-    
+    var nums = number.split('');
+    if (number.length === 14) {
+        if (nums[0] === '3') {
+            if (nums[1] === '0' || nums[1] === '6' || nums[1] === '8') {
+                return true;
+            } else if (nums[0] === '3' && nums[1] === '0') {
+                if (nums[2] === '0' || nums[2] === '1' || nums[2] === '2' || nums[2] === '3' || nums[2] === '4' || nums[2] === '5') {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
